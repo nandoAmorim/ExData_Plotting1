@@ -7,7 +7,20 @@ names(data) <- names(names_list)
 data['Date'] <- as.Date(x=data[,'Date'],'%d/%m/%Y')
 data['DateTime'] <- paste(data[,'Date'],data[,'Time'])
 
-png('plot3.png',bg='transparent',width=480,height=480)
+png('plot4.png',bg='transparent',width=480,height=480)
+par(mfrow=c(2,2)) 
+plot(y = data$Global_active_power,
+     x = strptime(data$DateTime, '%Y-%m-%d %H:%M:%S'), 
+     type = 'l',
+     ylab = 'Global Active Power',
+     xlab = '')
+
+plot(y = data$Voltage,
+     x = strptime(data$DateTime, '%Y-%m-%d %H:%M:%S'), 
+     type = 'l',
+     ylab = 'Voltage',
+     xlab = 'datetime')
+
 
 plot(y = data$Sub_metering_1,
      x = strptime(data$DateTime, '%Y-%m-%d %H:%M:%S'), 
@@ -26,6 +39,12 @@ lines(y = data$Sub_metering_3,
       col = 'blue')
 
 legend('topright', c('Sub_metering_1','Sub_metering_2','Sub_metering_3'),lty=1 ,col=c('black','red','blue'))
+
+plot(y = data$Global_reactive_power,
+     x = strptime(data$DateTime, '%Y-%m-%d %H:%M:%S'), 
+     type = 'l',
+     ylab = 'Global_reactive_power',
+     xlab = 'datetime')
 
 dev.off()
 
